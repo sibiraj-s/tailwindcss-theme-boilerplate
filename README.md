@@ -61,6 +61,18 @@ For more details on configuring TailwindCSS, please refer to the official [Tailw
 
 This boilerplate includes some example components that showcase theming. You can find these components in the `src/components/ui` directory. These components are pre-styled with TailwindCSS classes and demonstrate how to apply the active theme to various UI elements.
 
+## Testing with ViteTest
+
+This boilerplate includes support for testing your application using ViteTest. ViteTest is a lightweight testing framework designed specifically for Vite projects.
+
+To run the tests, use the following command:
+
+```bash
+npm run test
+```
+
+This command will execute your test suite and provide the test results in the console.
+
 ## Building for Production
 
 To build the application for production, run the following command:
