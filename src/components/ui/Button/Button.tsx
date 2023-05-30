@@ -3,7 +3,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { mergeProps, useObjectRef } from '@react-aria/utils';
 import { type AriaButtonProps, useButton } from 'react-aria';
 
-import cn from '../../utils/cn';
+import cn from '../../../utils/cn';
 
 const buttonVariabts = cva('px-4 py-2 rounded-md outline-none', {
   variants: {
