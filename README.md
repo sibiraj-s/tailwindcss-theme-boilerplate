@@ -1,6 +1,6 @@
-# TailwindCSS Theming Boilerplate
+# TailwindCSS Theme Boilerplate
 
-This repository provides a boilerplate setup for building web applications with theming using TailwindCSS and Vite. It serves as a starting point for developers who want to quickly set up a project that supports customizable themes with the power of TailwindCSS.
+This repository provides a boilerplate setup for building web applications with theming using TailwindCSS and Vite. It serves as a starting point to quickly set up a project that supports customizable themes with the power of TailwindCSS.
 
 ## Prerequisites
 
