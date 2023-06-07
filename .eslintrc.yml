@@ -15,5 +15,14 @@ parserOptions:
 plugins:
   - react-refresh
 
+overrides:
+  - files:
+      - '**/**.stories.tsx'
+    extends:
+      - 'plugin:storybook/recommended'
+
 rules:
   react-refresh/only-export-components: warn
+
+ignorePatterns:
+  - '!.storybook'
