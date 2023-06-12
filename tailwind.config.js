@@ -1,3 +1,14 @@
+const withOpacity = (variableName) => {
+  return ({ opacityValue } = {}) => {
+    if (opacityValue !== undefined) {
+      return `hsla(var(${variableName})/ ${opacityValue})`;
+    }
+
+    return `hsl(var(${variableName}))`;
+  };
+};
+
+
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: ['class', '[data-theme="dark"]'],
@@ -8,12 +19,12 @@ export default {
         'spin-slowest': 'spin 20s linear infinite',
       },
       colors: {
-        background: 'hsl(var(--background))',
-        foreground: 'hsl(var(--foreground))',
-        input: 'hsl(var(--input))',
+        background: withOpacity('--background'),
+        foreground: withOpacity('--foreground'),
+        input: withOpacity('--input'),
         primary: {
-          DEFAULT: 'hsl(var(--primary))',
-          foreground: 'hsl(var(--primary-foreground))',
+          DEFAULT: withOpacity('--primary'),
+          foreground: withOpacity('--primary-foreground'),
         },
       },
     },
