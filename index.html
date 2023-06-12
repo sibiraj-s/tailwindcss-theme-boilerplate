@@ -9,19 +9,24 @@
 
   <body class="h-full">
     <script>
-      const getTheme = () => {
-        const cachedTheme = localStorage.getItem('theme');
-
-        if (cachedTheme) {
-          return cachedTheme === 'dark' ? 'dark' : 'light';
-        }
-
+      const getPreferredTheme = () => {
         return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
       };
 
-      const theme = getTheme();
+      const getCachedTheme = () => {
+        const cachedTheme = localStorage.getItem('theme');
+
+        if (cachedTheme) {
+          return ['dark', 'light'].includes(cachedTheme) ? cachedTheme : getPreferredTheme();
+        }
+
+        return getPreferredTheme();
+      };
+
+      const theme = getCachedTheme();
       document.documentElement.setAttribute('data-theme', theme);
     </script>
+
     <div id="root" class="h-full bg-background text-foreground transition-colors"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

@@ -1,35 +1,61 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useSyncExternalStore } from 'react';
 
 import Switch from './ui/Switch';
 
 type Theme = 'dark' | 'light'
 
-const getInitialTheme = (): Theme => {
-  const cachedTheme = localStorage.getItem('theme')
+const getPreferredTheme = (): Theme => {
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+}
 
-  if (cachedTheme) {
-    return cachedTheme === 'dark' ? 'dark' : 'light';
+const getCachedTheme = (): Theme | null => {
+  const cachedTheme = localStorage.getItem('theme') ?? ''
+  return ['dark', 'light'].includes(cachedTheme) ? (cachedTheme as Theme) : null
+}
+
+const getInitialTheme = (): Theme => {
+  const cachedTheme = getCachedTheme()
+  return cachedTheme ? cachedTheme : getPreferredTheme();
+}
+
+const themeListener = (callback: EventListenerOrEventListenerObject): () => void => {
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', callback);
+
+  return () => {
+    window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', callback);
+  };
+}
+
+const useTheme = () => {
+  const [theme, setTheme] = useState<Theme>(getInitialTheme())
+  const [autoDetect, setAutoDetect] = useState<boolean>(getCachedTheme() === null ? true : false)
+  const preferredTheme = useSyncExternalStore(themeListener, getPreferredTheme)
+
+  const appliedTheme = autoDetect ? preferredTheme : theme
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', appliedTheme);
+  }, [appliedTheme]);
+
+  const handleSetTheme = (newTheme: Theme) => {
+    localStorage.setItem('theme', newTheme);
+    setAutoDetect(false)
+    setTheme(newTheme)
   }
 
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  return [
+    appliedTheme as Theme,
+    handleSetTheme
+  ] as const
 }
 
 const ThemeToggle = () => {
-  const [theme, setTheme] = useState(getInitialTheme());
-
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-  }, [theme]);
+  const [theme, setTheme] = useTheme();
+  const isChecked = theme === 'dark'
 
   const handleThemeChange = (checked: boolean) => {
-    setTheme(() => {
-      const _theme = checked ? 'dark' : 'light';
-      localStorage.setItem('theme', _theme);
-      return _theme;
-    });
+    setTheme(checked ? 'dark' : 'light');
   };
-
-  const isChecked = theme === 'dark'
 
   return (
     <Switch
