@@ -9,6 +9,10 @@ const config: StorybookConfig = {
   },
   docs: {
     autodocs: 'tag'
+  },
+  core: {
+    disableTelemetry: true,
+    disableWhatsNewNotifications: true,
   }
 };
 export default config;
