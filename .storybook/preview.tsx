@@ -44,6 +44,7 @@ const preview: Preview = {
       const selectedTheme = backgrounds.values.find(bg => bg.value === globalBackground?.value)?.name
       const theme = isValidTheme(selectedTheme) ? selectedTheme : getPreferredTheme()
 
+      console.log(selectedTheme)
       return (
         <div data-theme={theme}>
           <Story />
