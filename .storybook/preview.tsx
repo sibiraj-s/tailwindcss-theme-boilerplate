@@ -1,30 +1,19 @@
-import type { Preview } from '@storybook/react';
+import type { Decorator, Preview } from '@storybook/react';
+import { useDarkMode } from 'storybook-dark-mode';
 
 import '../src/index.css'
+import { useEffect } from 'react';
 
-const Theme = {
-  Light: 'light',
-  Dark: 'dark'
-}
+const WithThemeProvider: Decorator = (Story) => {
+  const isDarkMode = useDarkMode();
 
-type Theme = 'light' | 'dark'
+  useEffect(() => {
+    document.body.classList.remove('dark', 'light');
+    document.documentElement.classList.toggle('dark', isDarkMode);
+  }, [isDarkMode]);
 
-interface BackgroundValue {
-  name: Theme,
-  value: string;
-}
-
-interface Backgrounds {
-  values: BackgroundValue[]
-}
-
-const getPreferredTheme = () => {
-  return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? Theme.Dark : Theme.Light
-}
-
-const isValidTheme = (theme:Theme | unknown) => {
-  return theme === Theme.Dark || theme === Theme.Light
-}
+  return <Story />;
+};
 
 const preview: Preview = {
   parameters: {
@@ -35,23 +24,9 @@ const preview: Preview = {
         date: /Date$/,
       },
     },
+    backgrounds: { disable: true },
   },
-  decorators: [
-    (Story, context) => {
-      const backgrounds = context.parameters.backgrounds as Backgrounds
-      const globalBackground = context.globals.backgrounds as BackgroundValue | null
-
-      const selectedTheme = backgrounds.values.find(bg => bg.value === globalBackground?.value)?.name
-      const theme = isValidTheme(selectedTheme) ? selectedTheme : getPreferredTheme()
-
-      console.log(selectedTheme)
-      return (
-        <div data-theme={theme}>
-          <Story />
-        </div>
-      )
-    },
-  ],
+  decorators: [WithThemeProvider],
 };
 
 export default preview;
