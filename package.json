@@ -27,9 +27,9 @@
     "tailwind-merge": "^2.3.0"
   },
   "devDependencies": {
-    "@storybook/addon-essentials": "^8.1.10",
+    "@storybook/addon-essentials": "^8.4.1",
     "@storybook/addon-links": "^8.1.10",
-    "@storybook/blocks": "^8.1.10",
+    "@storybook/blocks": "^8.4.1",
     "@storybook/react": "^8.1.10",
     "@storybook/react-vite": "^8.1.10",
     "@testing-library/react": "^16.0.0",
