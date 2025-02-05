@@ -1,11 +1,11 @@
-import { forwardRef, type ButtonHTMLAttributes } from 'react';
+import { FC, Ref, type ButtonHTMLAttributes } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { mergeProps, useObjectRef } from '@react-aria/utils';
 import { type AriaButtonProps, useButton } from 'react-aria';
 
 import cn from '../../../utils/cn';
 
-const buttonVariabts = cva('px-4 py-2 rounded-md outline-none', {
+const buttonVariabts = cva('px-4 py-2 rounded-md outline-hidden', {
   variants: {
     variant: {
       primary: 'bg-primary text-primary-foreground ',
@@ -16,10 +16,11 @@ const buttonVariabts = cva('px-4 py-2 rounded-md outline-none', {
   },
 });
 
-type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & AriaButtonProps & VariantProps<typeof buttonVariabts>;
+type ButtonVariantProps = VariantProps<typeof buttonVariabts>;
+type ButtonRefProps = { ref?: Ref<HTMLButtonElement> };
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & AriaButtonProps & ButtonVariantProps & ButtonRefProps;
 
-const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
-  const { variant, children, className, ...rest } = props;
+const Button: FC<ButtonProps> = ({ variant, children, className, ref, ...rest }) => {
   const buttonRef = useObjectRef<HTMLButtonElement>(ref);
 
   const { buttonProps } = useButton(rest, buttonRef);
@@ -29,6 +30,6 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
       {children}
     </button>
   );
-});
+};
 
 export default Button;

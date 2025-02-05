@@ -13,6 +13,6 @@
   "[css]": {
     "editor.defaultFormatter": "sibiraj-s.vscode-scss-formatter"
   },
-  "tailwindCSS.experimental.classRegex": [["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]],
-  "css.customData": ["./.vscode/tailwind-css-data.json"]
+  "tailwindCSS.experimental.classRegex": [["(?:twMerge|cn|cva)\\(([^;]*)[\\);]", "[`'\"`]([^'\"`;]*)[`'\"`]"]],
+  "css.customData": ["./.vscode/tailwind.json"]
 }
