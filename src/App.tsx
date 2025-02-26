@@ -15,11 +15,11 @@ function App() {
       <div className='m-auto text-center'>
         <div className='mb-2'>
           <div className='mb-3 flex justify-center gap-6'>
-            <a href='https://vitejs.dev' target='_blank'>
+            <a href='https://vitejs.dev' target='_blank' rel='noreferrer'>
               <img src={viteLogo} className='h-24 w-24' alt='Vite logo' />
             </a>
-            <a href='https://react.dev' target='_blank'>
-              <img src={reactLogo} className='h-24 w-24 animate-spin-slowest' alt='React logo' />
+            <a href='https://react.dev' target='_blank' rel='noreferrer'>
+              <img src={reactLogo} className='animate-spin-slowest h-24 w-24' alt='React logo' />
             </a>
           </div>
           <h1 className='text-4xl'>Vite + React</h1>
