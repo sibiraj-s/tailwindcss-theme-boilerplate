@@ -1,7 +1,7 @@
-import type { Decorator, Preview } from '@storybook/react';
+import type { Decorator, Preview } from '@storybook/react-vite';
 import { useDarkMode } from 'storybook-dark-mode';
 
-import '../src/index.css'
+import '../src/index.css';
 import { useEffect } from 'react';
 
 const WithThemeProvider: Decorator = (Story) => {
